@@ -97,6 +97,13 @@
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
+    // دالة لتشغيل النص صوتيًا
+    function speakText(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ar'; // تعيين اللغة إلى العربية
+      window.speechSynthesis.speak(utterance);
+    }
+
     // دالة لحفظ بيانات تسجيل الدخول
     function saveLogin() {
       const email = document.getElementById('email').value;
@@ -114,13 +121,14 @@
         errorMessage.textContent = '';
         document.getElementById('email').value = '';
         document.getElementById('password').value = '';
+        speakText('تم حفظ البيانات بنجاح!');
       })
       .catch((error) => {
         errorMessage.textContent = 'خطأ أثناء حفظ البيانات: ' + error.message;
         message.textContent = '';
+        speakText('حدث خطأ أثناء حفظ البيانات: ' + error.message);
       });
     }
   </script>
 </body>
-  <!-- new code -->
 </html>
